@@ -1,0 +1,2 @@
+module JobsAtTeamtailorHelper
+end

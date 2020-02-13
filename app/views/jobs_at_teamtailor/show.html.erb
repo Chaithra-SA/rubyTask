@@ -1,0 +1,48 @@
+<% @json.each do |v| %>
+    <div class="topimage">
+      <span class="textFitted">Are you our next <%= v["attributes"]["title"] %>?</span>
+      <center><button class="apply-button"><a href="<%= v["links"]["careersite-job-apply-url"]%>">Apply Now</a></button></center> 
+    </div>
+    <div class="eachjob">
+      <div class="jobbody">
+        <br/>
+        <%= v["attributes"]["pitch"] %>
+        <p><%= (v["attributes"]["body"]).html_safe %></p><hr/>
+        <p> If there are any queries, mail to <%= v["attributes"]["mailbox"] %></p><hr/>
+        
+        
+        <h2>Job Details</h2>
+        <% @location = HTTParty.get(v["relationships"]["location"]["links"]["related"], :headers => {
+                       "X-Api-Version" => "20161108",
+                       "Content-Type" => "application/json",
+                       "Authorization" => "Token token=g7_KVbKaKS7RQYcXlQ0vrCm7SdZBTTEALO7zi8wV"
+        }) %>
+        <% loc_attribute= @location["data"] %>
+        <% if !(loc_attribute.nil?) && loc_attribute.key?("attributes")%>
+         <p>Location: <%= @location["data"]["attributes"]["city"]%>,<%= @location["data"]["attributes"]["country"]%></p>
+        <%else%>
+         <p>Location: All Locations</p>
+        <% end %>
+        
+        <% @department = HTTParty.get(v["relationships"]["department"]["links"]["related"], :headers => {
+                       "X-Api-Version" => "20161108",
+                       "Content-Type" => "application/json",
+                       "Authorization" => "Token token=g7_KVbKaKS7RQYcXlQ0vrCm7SdZBTTEALO7zi8wV"
+        }) %>
+        <% dep_attribute= @department["data"] %>
+        <% if !(dep_attribute.nil?) && dep_attribute.key?("attributes")%>
+         <p>department: <%= @department["data"]["attributes"]["name"] %></p>
+        <% end %>
+         
+        <p>Status: <%= v["attributes"]["status"] %></p>
+       
+        <% if v["attributes"]["apply-button-text"]==""%>
+          <center><button class="apply-button"><a href="<%= v["links"]["careersite-job-apply-url"]%>">Apply Now</a></button></center>
+        <% else %>
+          <center><button class="apply-button"><a href="<%= v["links"]["careersite-job-apply-url"]%>"><%= v["attributes"]["apply-button-text"]%></a></button></center>
+        <% end %>
+        
+      </div>
+    <a href="/jobs_at_teamtailor" class="previous">&laquo; Back To Job Lists</a>
+  </div>
+<% end %>

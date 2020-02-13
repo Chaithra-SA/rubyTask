@@ -1,0 +1,31 @@
+<div class="jobs-section-inner">
+  <div class="jobs-section-header">
+    <h1 class="u-primary-text-color">Career Openings</h1>
+  </div>
+  <div class="job-listing-container">
+    <ul class="jobs card jobs--count-9 u-margin-top--xxlarge">
+      <% @jobs.reverse_each do |v| %>
+        <li>
+          <a href="jobs_at_teamtailor/<%= v["id"]%>" class="u-primary-background-color" onmouseover="this.style.background='lightgray';" onmouseout="this.style.background='white';">
+            <div class="inner" >
+              <span class="title u-link-color u-no-hover"><%= v["attributes"]["title"] %></span><br/>
+              
+              <% @location = HTTParty.get(v["relationships"]["location"]["links"]["related"], :headers => {
+                         "X-Api-Version" => "20161108",
+                         "Content-Type" => "application/json",
+                         "Authorization" => "Token token=g7_KVbKaKS7RQYcXlQ0vrCm7SdZBTTEALO7zi8wV"
+              }) %>
+              <% loc_attribute= @location["data"] %>
+              <% if !(loc_attribute.nil?) && loc_attribute.key?("attributes")%>
+               <span class="meta u-text-small u-primary-text-color"><%= @location["data"]["attributes"]["city"]%>,<%= @location["data"]["attributes"]["country"]%></span>
+              <%else%>
+               <span class="meta u-text-small u-primary-text-color">All Locations</span>
+               
+              <% end %>       
+            </div>
+          </a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
