@@ -17,6 +17,8 @@
    3. rubyTask/app/views/jobs_at_teamtailor/show.html.erb
    4. rubyTask/app/assets/stylesheets/jobs_at_teamtailor.scss
    5. rubyTask/config/routes.rb 
+
+4. API used https://api.teamtailor.com/v1/jobs/
  
 
 
