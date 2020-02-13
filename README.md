@@ -1,8 +1,8 @@
 # README
 1. Requirement-
-    a. Ruby Version- ruby 2.5.1
-    b. Rails Version-Rails 6.0.2.1
-    c. Bundler Version-Bundler version 2.1.4 ($ gem install bundler)
+    1. Ruby Version- ruby 2.5.1
+    2. Rails Version-Rails 6.0.2.1
+    3. Bundler Version-Bundler version 2.1.4 ($ gem install bundler)
     
 2. Run following commands:    
     1. $ git clone https://github.com/Chaithra-SA/rubyTask.git
